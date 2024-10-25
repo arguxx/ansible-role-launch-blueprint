@@ -1,0 +1,77 @@
+---
+- name: HTTP launch blueprint request
+  hosts: localhost
+  tasks:
+      - name: Perform a POST to launch Blueprint
+        ansible.builtin.uri:
+            url: https://{{ pc_ip }}:9440/api/nutanix/v3/blueprints/{{ bp_id }}/simple_launch
+            validate_certs: no
+            method: POST
+            headers:
+                Content-Type: "application/json"
+                Authorization: "Basic {{ basic_auth }}"
+            body: |
+                {
+                    "spec": {
+                        "app_description": "{{ app_description }}",
+                        "app_name": "{{ app_name }}",
+                        "app_profile_reference": {
+                            "kind": "app_profile",
+                            "name": "{{ app_profile_reference_name }}",
+                            "uuid": "{{ app_profile_reference_uuid }}"
+                        },
+
+                        "runtime_editables": {
+                            "variable_list": [
+                                {
+                                    "description": "",
+                                    "name": "card_id",
+                                    "value": {
+                                        "value": "{{ card_id }}"
+                                    },
+                                    "type": "LOCAL",
+                                    "uuid": "{{ card_id_uuid_variable }}"
+                                },
+                                {
+                                    "description": "",
+                                    "name": "username",
+                                    "value": {
+                                        "value": "{{ username }}"
+                                    },
+                                    "type": "LOCAL",
+                                    "uuid": "{{ username_uuid_variable }}"
+                                },
+                                {
+                                    "description": "",
+                                    "name": "password",
+                                    "value": {
+                                        "value": "{{ password }}"
+                                    },
+                                    "type": "LOCAL",
+                                    "uuid": "{{ password_uuid_variable }}"
+                                }
+                            ],
+                            "substrate_list": [
+                                {
+                                    "description": "",
+                                    "name": "VM1_{{ app_profile_reference_name }}",
+                                    "value": {
+                                        "spec": {
+                                            "name": "{{ vm_name }}"
+                                        }
+                                    },
+                                    "type": "AHV_VM",
+                                    "uuid": "{{ substrate_list_uuid }}"
+                                }
+                            ]
+                        }   
+
+                    }
+                }
+            body_format: json
+            return_content: yes
+        register: response
+
+      - name: Print response
+        debug:
+            var: response.content

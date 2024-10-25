@@ -1,0 +1,20 @@
+---
+# public data
+pc_ip: <PC-IP>
+bp_id: <BP-UUID>
+basic_auth: <PC-BASIC-AUTH>
+app_description: <APP-DESC>
+app_name: <APP-NAME>
+app_profile_reference_name: <TSHIRT-SIZE>
+app_profile_reference_uuid: <APP-UUID>
+card_id: <CARD-ID>
+username: <VM-USERNAME>
+password: <VM-PASSWORD>
+vm_name: <VM-NAME>
+substrate_list_uuid: <SUBSTRATE-LIST-UUID>
+vm_uuid: <VM-UUID>
+alert_uuid: <UUID-ALERT>
+webhook_uuid: <WEBHOOK-UUID>
+card_uuid_variable: <card_uuid_varible>
+username_uuid_variable: <uuid_variable>
+password_uuid_variable: <uuid_variable>
