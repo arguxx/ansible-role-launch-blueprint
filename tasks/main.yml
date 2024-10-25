@@ -1,6 +1,5 @@
 ---
 - name: HTTP launch blueprint request
-  hosts: localhost
   tasks:
       - name: Perform a POST to launch Blueprint
         ansible.builtin.uri:
