@@ -1,0 +1,71 @@
+{
+    "spec": {
+        "app_description": "{{ app_description }}",
+        "app_name": "{{ app_name }}",
+        "app_profile_reference": {
+            "kind": "app_profile",
+            "name": "{{ app_profile_reference_name }}",
+            "uuid": "{{ app_profile_reference_uuid }}"
+        },
+
+        "runtime_editables": {
+            "variable_list": [
+                {
+                    "description": "",
+                    "name": "card_id",
+                    "value": {
+                        "value": "{{ card_id }}"
+                    },
+                    "type": "LOCAL",
+                    "uuid": "{{ card_id_uuid_variable }}"
+                },
+                {
+                    "description": "",
+                    "name": "username",
+                    "value": {
+                        "value": "{{ username }}"
+                    },
+                    "type": "LOCAL",
+                    "uuid": "{{ username_uuid_variable }}"
+                },
+                {
+                    "description": "",
+                    "name": "password",
+                    "value": {
+                        "value": "{{ password }}"
+                    },
+                    "type": "LOCAL",
+                    "uuid": "{{ password_uuid_variable }}"
+                }
+            ],
+            "substrate_list": [
+                {
+                    "description": "",
+                    "name": "VM1_{{ app_profile_reference_name }}",
+                    "value": {
+                        "spec": {
+                            "name": "{{ vm_name }}",
+                            "resources": {
+                                "num_sockets": {{ custom_cpu_num }},
+                                "memory_size_mib": {{ custom_memory }},
+                                "disk_list": {
+                                    "disk_size_mib": {{ custom_storage}}
+                                },
+                                "boot_config":{
+                                    "boot_device":{
+                                        "disk_address":{
+                                            "device_index": 0,
+                                            "adapter_type": "SCSI"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "type": "AHV_VM",
+                    "uuid": "{{ substrate_list_uuid }}"
+                }
+            ]
+        }
+    }
+}
