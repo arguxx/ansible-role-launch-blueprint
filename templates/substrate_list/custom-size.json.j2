@@ -1,0 +1,26 @@
+{
+    "description": "",
+    "name": "VM1_{{ app_profile_reference_name }}",
+    "value": {
+        "spec": {
+            "name": "{{ vm_name }}",
+            "resources": {
+                "num_sockets": {{ custom_cpu_num }},
+                "memory_size_mib": {{ custom_memory }},
+                "disk_list": {
+                    "disk_size_mib": {{ custom_storage}}
+                },
+                "boot_config":{
+                    "boot_device":{
+                        "disk_address":{
+                            "device_index": 0,
+                            "adapter_type": "SCSI"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "type": "AHV_VM",
+    "uuid": "{{ substrate_list_uuid }}"
+}
