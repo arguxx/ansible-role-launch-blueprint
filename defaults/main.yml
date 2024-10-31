@@ -1,20 +1,25 @@
 ---
 # public data
+
+# Instance Configuration
 pc_ip: <PC-IP>
-bp_id: <BP-UUID>
-basic_auth: <PC-BASIC-AUTH>
-app_description: <APP-DESC>
+vm_name: <VM-NAME>
+substrate_list_uuid: <SUBSTRATE-LIST-UUID>
+
+# Application Configuration
 app_name: <APP-NAME>
+app_description: <APP-DESC>
+
+# Blueprint & Profile
+bp_id: <BP-UUID>
 app_profile_reference_name: <TSHIRT-SIZE>
 app_profile_reference_uuid: <APP-UUID>
 card_id: <CARD-ID>
+card_uuid_variable: <card_uuid_varible>
+
+# Credentials
 username: <VM-USERNAME>
 password: <VM-PASSWORD>
-vm_name: <VM-NAME>
-substrate_list_uuid: <SUBSTRATE-LIST-UUID>
-vm_uuid: <VM-UUID>
-alert_uuid: <UUID-ALERT>
-webhook_uuid: <WEBHOOK-UUID>
-card_uuid_variable: <card_uuid_varible>
+basic_auth: <PC-BASIC-AUTH>
 username_uuid_variable: <uuid_variable>
 password_uuid_variable: <uuid_variable>
