@@ -1,39 +1,43 @@
 ---
-- name: Set template file based on condition
-  set_fact:
-      template_file: "{{ '../templates/custom-size.json.j2' if app_profile_reference_name == 'custom' else '../templates/tshirt-size.json.j2' }}"
+- name: Prepare body based on variable
+  block:
+      - name: Set template file based on condition
+        set_fact:
+            substrate_list_content: "{{ lookup('template', 'substrate_list/custom-size.json.j2') if app_profile_reference_name == 'custom' else lookup('template', 'substrate_list/tshirt-size.json.j2') }}"
 
-- name: Render JSON body template
-  ansible.builtin.template:
-      src: "{{ template_file }}"
-      dest: /tmp/rendered_body.json
-  register: rendered_body
+      - name: Render JSON body template
+        ansible.builtin.template:
+            src: "main.json.j2"
+            dest: /tmp/rendered_body.json
+        register: rendered_body
 
-- name: Read rendered JSON body
-  ansible.builtin.slurp:
-      src: /tmp/rendered_body.json
-  register: body_content
+      - name: Read rendered JSON body
+        ansible.builtin.slurp:
+            src: /tmp/rendered_body.json
+        register: body_content
 
-- name: Set body content as variable
-  set_fact:
-      body: "{{ body_content['content'] | b64decode }}"
+      - name: Set body content as variable
+        set_fact:
+            body: "{{ body_content['content'] | b64decode }}"
 
-- name: Perform a POST to launch Blueprint
-  ansible.builtin.uri:
-      url: https://{{ pc_ip }}:9440/api/nutanix/v3/blueprints/{{ bp_id }}/simple_launch
-      validate_certs: no
-      method: POST
-      headers:
-          Content-Type: "application/json"
-          Authorization: "Basic {{ basic_auth }}"
-      body: "{{ body }}"
-      body_format: json
-      return_content: yes
-  register: response
+- name: Post and fetch response
+  block:
+      - name: Perform a POST to launch Blueprint
+        ansible.builtin.uri:
+            url: https://{{ pc_ip }}:9440/api/nutanix/v3/blueprints/{{ bp_id }}/simple_launch
+            validate_certs: no
+            method: POST
+            headers:
+                Content-Type: "application/json"
+                Authorization: "Basic {{ basic_auth }}"
+            body: "{{ body }}"
+            body_format: json
+            return_content: yes
+        register: response
 
-- name: Print response
-  debug:
-      var: response.content
+      - name: Print response
+        debug:
+            var: response.content
 
 - name: Remove rendered body file
   ansible.builtin.file:

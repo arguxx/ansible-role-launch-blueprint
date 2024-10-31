@@ -1,0 +1,19 @@
+{
+    "spec": {
+        "app_description": "{{ app_description }}",
+        "app_name": "{{ app_name }}",
+        "app_profile_reference": {
+            "kind": "app_profile",
+            "name": "{{ app_profile_reference_name }}",
+            "uuid": "{{ app_profile_reference_uuid }}"
+        },
+        "runtime_editables": {
+            "variable_list": [
+                {% include "variable_list/variable_list.json.j2" %}
+            ],
+            "substrate_list": [
+                {{ substrate_list_content | safe }}
+            ]
+        }
+    }
+}
