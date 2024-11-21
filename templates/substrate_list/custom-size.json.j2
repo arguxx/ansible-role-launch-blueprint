@@ -7,15 +7,30 @@
             "resources": {
                 "num_sockets": {{ custom_cpu_num }},
                 "memory_size_mib": {{ custom_memory }},
-                "disk_list": {
-                    "disk_size_mib": {{ custom_storage}}
-                },
                 "boot_config":{
                     "boot_device":{
                         "disk_address":{
                             "device_index": 0,
                             "adapter_type": "SCSI"
                         }
+                    }
+                },
+                "disk_list": {
+                    "0": {
+                        "data_source_reference": {
+                            "kind": "image",
+                            "name": "AHV_ROCKY_89",
+                            "uuid": "{{ disk_0_uuid }}"
+                        },
+                        "device_properties": {
+                            "disk_address": {
+                                "device_index": 0,
+                                "adapter_type": "SCSI"
+                            },
+                            "device_type": "DISK"
+                        },
+                        "disk_size_mib": {{ custom_storage }},
+                        "volume_group_reference": null
                     }
                 }
             }
